@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         paddingTop: StatusBar.currentHeight,
       },
       scrollView: {
-        backgroundColor: 'pink',
+        backgroundColor: 'white',
         marginHorizontal: 20,
       },
   });
