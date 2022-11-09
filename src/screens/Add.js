@@ -6,6 +6,8 @@ import { database } from '../config/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import dayjs from 'dayjs';
 import { useNavigation } from '@react-navigation/native';
+import 'react-native-get-random-values';
+import {v4 as uuid} from 'uuid';
 
 
 export default function Add() {
@@ -18,7 +20,7 @@ export default function Add() {
         description: '',
         date: date.toISOString(),
         videocall: {
-            url: ''
+            url: `https://meet.jit.si/${uuid()}`
         },
         createdAt: new Date().toISOString(),
 
@@ -90,11 +92,11 @@ export default function Add() {
                 <Text>{dayjs(date).format('HH:mm')}</Text>
                 </View>
             </TouchableHighlight>
-            <TextInput
+            {/* <TextInput
                 style={styles.inputContainer}
                 placeholder='Link de videollamada'
                 onChangeText={(text) => setNewItem({...newItem, videocall: {url: text}})}
-            /> 
+            />  */}
             <Button title='Publicar' onPress={onSend}>Crear evento</Button>
             {/* <Text>{JSON.stringify(newItem)}</Text>            */}
         </View>
