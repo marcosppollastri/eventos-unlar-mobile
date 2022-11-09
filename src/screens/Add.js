@@ -1,10 +1,11 @@
-import * as React from 'react';
-import {View, Text, TextInput, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, TextInput, StyleSheet, Button} from 'react-native';
 import EmojiPicker from 'rn-emoji-keyboard';
 
 export default function Add() {
-    const [isOpen, setIsOpen] = React.useState(true);
-    const [newItem, setNewItem] = React.useState({
+    const [isOpen, setIsOpen] = useState(true);
+    const [date, setDate] = useState(new Date(1598051730000));
+    const [newItem, setNewItem] = useState({
         emoji: '*',
         name: '',
         description: '',
@@ -16,6 +17,29 @@ export default function Add() {
         createdAt: new Date(),
 
     });
+
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate;
+        setDate(currentDate);
+      };
+    
+      const showMode = (currentMode) => {
+        DateTimePickerAndroid.open({
+          value: date,
+          onChange,
+          mode: currentMode,
+          is24Hour: true,
+        });
+      };
+    
+      const showDatepicker = () => {
+        showMode('date');
+      };
+    
+      const showTimepicker = () => {
+        showMode('time');
+      };
+
     const handlePick = (emojiObject) => {
         setNewItem({
             ...newItem,
@@ -53,7 +77,9 @@ export default function Add() {
                 placeholder='Tags'
                 onChangeText={(text) => setNewItem({...newItem, tags: text})}
             />
-            
+            <Button onPress={showDatepicker} title="Show date picker!" />
+            <Button onPress={showTimepicker} title="Show time picker!" />
+            <Text>selected: {date.toLocaleString()}</Text>
             
         </View>
         </>
