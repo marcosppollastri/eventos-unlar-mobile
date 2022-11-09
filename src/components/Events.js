@@ -18,8 +18,8 @@ export default function Event({
             <Text style={styles.emoji}>{emoji}</Text>
             <Text style={styles.name}>{name}</Text>
             <Text style={styles.text}>{description}</Text>
-            <Text style={styles.text}>{Dayjs(Date(date)).format('DD/MM/YYYY')}</Text>
-            <Text style={styles.text}>{Dayjs(Date(date)).format('HH:mm')}</Text>
+            <Text style={styles.text}>{Dayjs(new Date(date)).format('DD/MM/YYYY')}</Text>
+            <Text style={styles.text}>{Dayjs(new Date(date)).format('HH:mm')}</Text>
             <Text style={styles.text}>{videocall.url}</Text>
 
         </View>
