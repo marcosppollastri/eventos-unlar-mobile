@@ -1,16 +1,18 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, StyleSheet, Button} from 'react-native';
+import {View, Text, TextInput, StyleSheet, Button, TouchableHighlight} from 'react-native';
 import EmojiPicker from 'rn-emoji-keyboard';
+import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import dayjs from 'dayjs';
+
 
 export default function Add() {
     const [isOpen, setIsOpen] = useState(true);
-    const [date, setDate] = useState(new Date(1598051730000));
+    const [date, setDate] = useState(new Date());
     const [newItem, setNewItem] = useState({
         emoji: '*',
         name: '',
         description: '',
-        tags: [],
-        date: new Date(),
+        date: date,
         videocall: {
             url: ''
         },
@@ -21,6 +23,7 @@ export default function Add() {
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate;
         setDate(currentDate);
+        setNewItem({...newItem, date: date});
       };
     
       const showMode = (currentMode) => {
@@ -50,7 +53,6 @@ export default function Add() {
         <>
         <View style={styles.container}>
             <Text style={styles.title}>Agregar un evento</Text>
-            <br></br>
             <Text style={styles.emoji}>{newItem.emoji}</Text>
             <EmojiPicker
                 onEmojiSelected={handlePick}
@@ -64,23 +66,27 @@ export default function Add() {
             />
             <TextInput
                 style={styles.inputContainer}
+                multiline
+                numberOfLines={4}
                 placeholder='Descripción breve del evento'
                 onChangeText={(text) => setNewItem({...newItem, description: text})}
             />
+            <TouchableHighlight style={styles.inputContainer} onPress={showDatepicker}>
+                <View >
+                <Text>{dayjs(date).format('DD/MM/YYYY')}</Text>
+                </View>
+            </TouchableHighlight>
+            <TouchableHighlight style={styles.inputContainer} onPress={showTimepicker}>
+                <View >
+                <Text>{dayjs(date).format('HH:mm')}</Text>
+                </View>
+            </TouchableHighlight>
             <TextInput
                 style={styles.inputContainer}
                 placeholder='Link de videollamada'
-                onChangeText={(text) => setNewItem({...newItem, description: text})}
-            />
-            <TextInput
-                style={styles.inputContainer}
-                placeholder='Tags'
-                onChangeText={(text) => setNewItem({...newItem, tags: text})}
-            />
-            <Button onPress={showDatepicker} title="Show date picker!" />
-            <Button onPress={showTimepicker} title="Show time picker!" />
-            <Text>selected: {date.toLocaleString()}</Text>
-            
+                onChangeText={(text) => setNewItem({...newItem, videocall: {url: text}})}
+            /> 
+            <Text>{JSON.stringify(newItem)}</Text>           
         </View>
         </>
     )

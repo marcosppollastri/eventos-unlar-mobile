@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
-import * as RN from 'react-native';
+import {StyleSheet, View, Image, Button} from 'react-native';
 
-const styles = RN.StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
@@ -22,10 +22,10 @@ export default function Home() {
     const navigation = useNavigation();
     return (
         <>
-        <RN.View style={styles.container}>
-            <RN.Image source={{uri: 'https://guarani.unlar.edu.ar/graf/logo-unlar.png'}} style={styles.logo}></RN.Image>
-            <RN.Button title='Crear evento' onPress={() => navigation.navigate('Add')}>Crear evento</RN.Button>
-        </RN.View>
+        <View style={styles.container}>
+            <Image source={{uri: 'https://guarani.unlar.edu.ar/graf/logo-unlar.png'}} style={styles.logo}></Image>
+            <Button title='Crear evento' onPress={() => navigation.navigate('Add')}>Crear evento</Button>
+        </View>
             
         </>
     )
