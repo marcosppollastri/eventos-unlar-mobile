@@ -16,6 +16,9 @@ const styles = StyleSheet.create({
       height: 180,
       alignItems: 'center'
     },
+    button: {
+      margin: 3
+    }
   });
 
 export default function Home() {
@@ -24,7 +27,7 @@ export default function Home() {
         <>
         <View style={styles.container}>
             <Image source={{uri: 'https://guarani.unlar.edu.ar/graf/logo-unlar.png'}} style={styles.logo}></Image>
-            <Button title='Ver eventos' onPress={() => navigation.navigate('ViewEvents')}>Crear evento</Button>
+            <Button style={styles.button} title='Ver eventos' onPress={() => navigation.navigate('ViewEvents')}>Crear evento</Button>
             <Button title='Crear evento' onPress={() => navigation.navigate('Add')}>Crear evento</Button>
         </View>
             

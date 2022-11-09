@@ -9,6 +9,9 @@ export default {
       "android",
       "web"
     ],
+      "android": {
+        "package": "com.diamondsoftware.eventosunlar"
+      },
     extra: {
       apiKey: process.env.API_KEY,
       authDomain: process.env.AUTH_DOMAIN,

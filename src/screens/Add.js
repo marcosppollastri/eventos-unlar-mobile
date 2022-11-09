@@ -2,28 +2,32 @@ import React, {useState} from 'react';
 import {View, Text, TextInput, StyleSheet, Button, TouchableHighlight} from 'react-native';
 import EmojiPicker from 'rn-emoji-keyboard';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import { database } from '../config/firebase';
+import { collection, addDoc } from 'firebase/firestore';
 import dayjs from 'dayjs';
+import { useNavigation } from '@react-navigation/native';
 
 
 export default function Add() {
+    const navigation = useNavigation();
     const [isOpen, setIsOpen] = useState(true);
     const [date, setDate] = useState(new Date());
     const [newItem, setNewItem] = useState({
         emoji: '*',
         name: '',
         description: '',
-        date: date,
+        date: date.toISOString(),
         videocall: {
             url: ''
         },
-        createdAt: new Date(),
+        createdAt: new Date().toISOString(),
 
     });
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate;
         setDate(currentDate);
-        setNewItem({...newItem, date: date});
+        setNewItem({...newItem, date: date.toISOString()});
       };
     
       const showMode = (currentMode) => {
@@ -48,6 +52,11 @@ export default function Add() {
             ...newItem,
             emoji: emojiObject.emoji,
         })
+    }
+
+    const onSend = async () => {
+        await addDoc(collection(database, 'events'), newItem);
+        navigation.goBack();
     }
     return (
         <>
@@ -86,7 +95,8 @@ export default function Add() {
                 placeholder='Link de videollamada'
                 onChangeText={(text) => setNewItem({...newItem, videocall: {url: text}})}
             /> 
-            <Text>{JSON.stringify(newItem)}</Text>           
+            <Button title='Publicar' onPress={onSend}>Crear evento</Button>
+            {/* <Text>{JSON.stringify(newItem)}</Text>            */}
         </View>
         </>
     )

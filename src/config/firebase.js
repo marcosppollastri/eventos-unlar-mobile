@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from 'firebase/firestore';
+import { initializeFirestore } from 'firebase/firestore';
 import Constants from "expo-constants";
 
 const firebaseConfig = {
@@ -11,5 +11,6 @@ const firebaseConfig = {
   appId: Constants.manifest.extra.appId,
 };
 
+
 export const app = initializeApp(firebaseConfig);
-export const database = getFirestore();
+export const database = initializeFirestore(app, { experimentalForceLongPolling: true });
